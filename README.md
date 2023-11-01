@@ -6,7 +6,7 @@
 
 - To avoid this, we will add another layer or intermediate between the controller and the Customer repository. This layer will act as a centralized store for all the repositories to receive the instance of the DbContext. This will ensure that, for a unit of transaction, that spans across multiple repositories, should either complete for all entities or should fail entirely, as all of them will share the same instance of the DbContext. In our above example, while adding data for the Order and Customer entities, in a single transaction, both will use the same DbContext instance. This situation, without and with Unit of work, can be represented as in the following :
 
-  ![image](https://github.com/jil1710/readmedemo/assets/125335932/75aac976-8029-448e-b367-ce58e5970791)
+  ![image](https://github.com/dotnet-simformsolutions/unit-of-work-pattern/blob/master/images/273117515-75aac976-8029-448e-b367-ce58e5970791.png)
 
 - In the above representation, during a single operation, that involves Customer and Order entities, both of them use the same DbContext instance. This will ensure that even if one of them breaks, the other one is also not saved, thus maintaining the database consistency. So when SaveChanges is executed, it will be done for both of the repositories.
 
@@ -14,11 +14,11 @@
 
   - Create Unit of Work interface
     
-    ![image](https://github.com/jil1710/readmedemo/assets/125335932/f44f442e-7e53-4e8f-8452-fcfc436ae600)
+    ![image](https://github.com/dotnet-simformsolutions/unit-of-work-pattern/blob/master/images/273118167-f44f442e-7e53-4e8f-8452-fcfc436ae600.png)
 
   - Implement the IUnitofWork interface that just created
 
-    ![image](https://github.com/jil1710/readmedemo/assets/125335932/df486036-c834-49df-9339-fc773738a05b)
+    ![image](https://github.com/dotnet-simformsolutions/unit-of-work-pattern/blob/master/images/273118086-df486036-c834-49df-9339-fc773738a05b.png)
 
   - Create generic repository interface
 
@@ -26,15 +26,15 @@
 
   - Implement the generic IRepository
 
-    ![image](https://github.com/jil1710/readmedemo/assets/125335932/8b341495-aa97-4843-aa71-db50c9c3398c)
+    ![image](https://github.com/dotnet-simformsolutions/unit-of-work-pattern/blob/master/images/273119032-bd0e5acc-36af-437f-96cd-be1cded5f760.png)
 
   - Register the Unit of Work as a service to use in a controller as DI injection
 
-    ![image](https://github.com/jil1710/readmedemo/assets/125335932/971da3cf-b4f4-40f9-ae54-b26773c835af)
+    ![image](https://github.com/dotnet-simformsolutions/unit-of-work-pattern/blob/master/images/273119329-971da3cf-b4f4-40f9-ae54-b26773c835af.png)
 
   - Use IUnitOfWork interface in controller to perform transaction
 
-    ![image](https://github.com/jil1710/readmedemo/assets/125335932/1782effd-f6a8-4d30-b607-0b190f47e31f)
+    ![image](https://github.com/dotnet-simformsolutions/unit-of-work-pattern/blob/master/images/273119534-1782effd-f6a8-4d30-b607-0b190f47e31f.png)
 
-    ![image](https://github.com/jil1710/readmedemo/assets/125335932/deec1683-4c90-45d6-91f0-2bea090e1978)
+    ![image](https://github.com/dotnet-simformsolutions/unit-of-work-pattern/blob/master/images/273119643-deec1683-4c90-45d6-91f0-2bea090e1978.png)
 
